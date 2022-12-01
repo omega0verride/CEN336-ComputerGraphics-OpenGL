@@ -1,0 +1,12 @@
+out=./main
+libs=-lGL -lglut -lGLU -lglfw
+
+clean:
+	rm -f $(out)
+
+build:
+	g++ src/SolarSystem.cpp $(libs) -o $(out)
+
+run:
+	make -f makeSolarSystem build
+	vblank_mode=0 $(out) # disable vsync for linux systems
