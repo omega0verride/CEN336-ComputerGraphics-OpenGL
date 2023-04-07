@@ -4,6 +4,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdio.h>
+#include <math.h>
 
 int oldMouseX, oldMouseY;
 // used to keep track of old mouse position, declared global since these will be overwritten each time the mouse event is called by glut itslef
@@ -19,7 +20,7 @@ GLfloat eyex = 0.0, eyey = 0.0, eyez = -9.0; // on startup the camera is moved 9
 
 GLfloat angleX = 0.0, angleY = 0.0, angleZ = 0.0;
 // angleX corresponds left-right rotation of the camera
-// angleY corresponds up-down rotation of the camera
+// angleY corresponds up-downs rotation of the camera
 // angleZ corresponds tilt
 // https://i.stack.imgur.com/fUBKD.gif
 
@@ -40,9 +41,25 @@ void init(void)
 
 void DrawCube(void)
 {
-	glColor3f(1.0, 1.0, 0.0);
-	glRotatef(45.0, 1.0, 0.5, 0.5);
-	glutWireCube(0.5);
+	glRotatef(20, 1.0, 1.0, 0.0);
+	glColor3f(1.0, 1.0, 1.0);
+	glutSolidCube(0.2);
+	
+	glTranslatef(0.2, 0.0, 0.0);
+	glColor3f(1.0, 0.0, 0.0);
+	glutSolidCube(0.2);
+	glTranslatef(-0.2, 0.0, 0.0);
+
+	glTranslatef(0.0, 0.2, 0.0);
+	glColor3f(0.0, 1.0, 0.0);
+	glutSolidCube(0.2);
+	glTranslatef(0.0, -0.2, 0.0);
+
+	glTranslatef(0.0, 0.0, 0.2);
+	glColor3f(0.0, 0.0, 1.0);
+	glutSolidCube(0.2);
+	glTranslatef(0.0, 0.0, -0.2);
+	
 }
 
 void display(void)
@@ -113,7 +130,35 @@ void mouseMove(int mouseX, int mouseY)
 
 void keyboard(unsigned char key, int x, int y)
 {
-	if (key == 'w' || key == 'W')
+if (key == 'w' || key == 'W')
+	{
+		eyez += cos(angleZ)*speed;
+		// angleZ += speed;
+		glutPostRedisplay();
+	}
+	else if (key == 's' || key == 'S')
+	{
+		eyez -= cos(angleZ)*speed;
+		// angleZ -= speed;
+		glutPostRedisplay();
+	}
+	else if (key == 'a' || key == 'A')
+	{
+		eyex += angleX*speed;
+		// eyex += cos(angleX)*speed;
+		// angleX += speed;
+		glutPostRedisplay();
+	}
+	else if (key == 'd' || key == 'D')
+	{
+
+		eyex -= angleX*speed;
+		// eyex -= cos(angleX)*speed;
+		// angleX -= speed;
+		glutPostRedisplay();
+	}
+	else if (key == 'q' || key == 'Q')
+	{	if (key == 'w' || key == 'W')
 	{
 		eyez += speed;
 		angleZ += speed;
@@ -139,6 +184,21 @@ void keyboard(unsigned char key, int x, int y)
 	}
 	else if (key == 'q' || key == 'Q')
 	{
+		eyey -= speed;
+		angleY -= speed;
+		glutPostRedisplay();
+	}
+	else if (key == 'e' || key == 'E')
+	{
+		eyey += speed;
+		angleY += speed;
+		glutPostRedisplay();
+	}
+	else if (key == 'r' || key == 'R')
+	{
+		eyex = 0.0, eyey = 0.0, eyez = -9.0;
+		glutPostRedisplay();
+	}
 		eyey -= speed;
 		angleY -= speed;
 		glutPostRedisplay();

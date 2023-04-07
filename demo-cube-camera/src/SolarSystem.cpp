@@ -248,7 +248,7 @@ void mouseMove(int mouseX, int mouseY)
 		angleX += mouseSensitivity;
 	else if (diffX > 0)
 		angleX -= mouseSensitivity;
-
+	printf("--->%lf", angleX);	
 	// save old mouse coordinates
 	oldMouseX = mouseX;
 	oldMouseY = mouseY;
@@ -259,26 +259,29 @@ void keyboard(unsigned char key, int x, int y)
 {
 	if (key == 'w' || key == 'W')
 	{
-		eyez += speed;
-		angleZ += speed;
+		eyez += cos(angleZ)*speed;
+		// angleZ += speed;
 		glutPostRedisplay();
 	}
 	else if (key == 's' || key == 'S')
 	{
-		eyez -= speed;
-		angleZ -= speed;
+		eyez -= cos(angleZ)*speed;
+		// angleZ -= speed;
 		glutPostRedisplay();
 	}
 	else if (key == 'a' || key == 'A')
 	{
-		eyex += speed;
-		angleX += speed;
+		eyex += angleX*speed;
+		// eyex += cos(angleX)*speed;
+		// angleX += speed;
 		glutPostRedisplay();
 	}
 	else if (key == 'd' || key == 'D')
 	{
-		eyex -= speed;
-		angleX -= speed;
+
+		eyex -= angleX*speed;
+		// eyex -= cos(angleX)*speed;
+		// angleX -= speed;
 		glutPostRedisplay();
 	}
 	else if (key == 'q' || key == 'Q')

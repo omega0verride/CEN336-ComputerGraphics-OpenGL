@@ -205,7 +205,7 @@ void mouse(int btn, int state, int x, int y)
 }
 
 
-void main(int argc, char** argv)
+int main(int argc, char** argv)
 {
 
 	glutInit(&argc, argv);
@@ -219,5 +219,5 @@ void main(int argc, char** argv)
 	glutMouseFunc(mouse);
 	glutIdleFunc(spin);
 	glutMainLoop();
-
+	return 0;
 }
